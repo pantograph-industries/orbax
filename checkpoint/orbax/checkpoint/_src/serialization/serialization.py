@@ -118,6 +118,7 @@ def _get_kvstore_for_s3(ckpt_path: str):
   endpoint_url = os.environ.get('AWS_ENDPOINT_URL')
   if endpoint_url:
     spec['endpoint'] = endpoint_url
+  print(f'S3 kvstore spec: {spec}')
   return spec
 
 
