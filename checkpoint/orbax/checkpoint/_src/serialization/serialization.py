@@ -110,11 +110,15 @@ def _get_kvstore_for_s3(ckpt_path: str):
     )
   s3_bucket = m.group(1)
   path_without_bucket = m.group(2)
-  return {
+  spec = {
       'driver': 's3',
       'bucket': s3_bucket,
       'path': path_without_bucket,
   }
+  endpoint_url = os.environ.get('AWS_ENDPOINT_URL')
+  if endpoint_url:
+    spec['endpoint'] = endpoint_url
+  return spec
 
 
 def get_tensorstore_spec(ckpt_path: str, ocdbt: bool = False):
